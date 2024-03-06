@@ -1,0 +1,13 @@
+.calculator {
+  &__buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    .calculator__button--span-two {
+      grid-column-end: span 2;
+    }
+  }
+  &__button {
+    padding: 10px;
+  }
+}
