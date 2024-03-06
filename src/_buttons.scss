@@ -8,6 +8,11 @@
     }
   }
   &__button {
+    background-color: rgb(231, 231, 231);
+    border-radius: 8px;
     padding: 10px;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
   }
 }
