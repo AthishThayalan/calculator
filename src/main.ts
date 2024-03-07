@@ -7,7 +7,7 @@ const display = document.querySelector<HTMLInputElement>(
   ".calculator__display"
 );
 const buttons = document.querySelectorAll<HTMLButtonElement>("button");
-let operation = "";
+let operation: string = "";
 
 //Update Display
 const updateDisplay = (): void => {
@@ -16,10 +16,30 @@ const updateDisplay = (): void => {
   }
   display.value = operation;
 };
+//clear operation
+const clearOperation = (): void => {
+  operation = "";
+  updateDisplay();
+};
+//DEL
+const removeLastDigit = (): void => {
+  operation = operation.slice(0, -1);
+  updateDisplay();
+};
 //Add to operation / Display Output
 const addToOperation = (value: string): void => {
-  operation += value;
-  console.log(operation);
+  if (
+    (Number(value) >= 0 && Number(value) <= 9) ||
+    (value === "." && !operation.includes(".")) // Makes sure that you can only add one decimal point.
+  ) {
+    operation += value;
+    console.log(operation);
+  } else if (value === "AC") {
+    clearOperation();
+  } else if (value === "DEL") {
+    removeLastDigit();
+  }
+
   updateDisplay();
 };
 
