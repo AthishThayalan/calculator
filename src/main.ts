@@ -42,6 +42,7 @@ const calculateOperation = (operation: string): number => {
     // we want to loop through all operators to know what to do with previous result and the next digit.
     const operator = splitOp[i]; // so this is the current operator
     const nextNum = Number(splitOp[i + 1]); // so this is the number after the operator
+    console.log(nextNum);
 
     if (operator === "+") {
       result += nextNum;
@@ -62,7 +63,7 @@ const evaluateOperation = (): void => {
     operation &&
     !operators.includes(operation.charAt(operation.length - 1)) // only lets you press "=" if last element is a number
   ) {
-    const result: number = calculateOperation(operation); // CANNOT USE NEED TO CHANGE
+    const result: number = calculateOperation(operation);
     operation = result.toString();
     updateDisplay();
   }
