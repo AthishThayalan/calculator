@@ -9,30 +9,46 @@
   </head>
   <body>
     <div class="calculator">
-      <input type="text" class="calculator__display" />
+      <input
+        type="text"
+        class="calculator__display"
+        placeholder="Placeholder"
+        id="display"
+        value=""
+        ;
+      />
       <div class="calculator__buttons">
-        <button class="calculator__button">AC</button
-        ><button class="calculator__button">DEL</button
-        ><button class="calculator__button">%</button
-        ><button class="calculator__button">÷</button
-        ><button class="calculator__button">7</button
+        <button class="calculator__button calculator__button--operator">
+          AC</button
+        ><button class="calculator__button calculator__button--operator">
+          DEL</button
+        ><button class="calculator__button calculator__button--operator">
+          %</button
+        ><button class="calculator__button calculator__button--operator">
+          ÷</button
+        ><button class="calculator__button" onclick="append('7')">7</button
         ><button class="calculator__button">8</button
         ><button class="calculator__button">9</button
-        ><button class="calculator__button">x</button
+        ><button class="calculator__button calculator__button--operator">
+          x</button
         ><button class="calculator__button">4</button
         ><button class="calculator__button">5</button
         ><button class="calculator__button">6</button
-        ><button class="calculator__button">-</button
+        ><button class="calculator__button calculator__button--operator">
+          -</button
         ><button class="calculator__button">1</button
         ><button class="calculator__button">2</button
         ><button class="calculator__button">3</button
-        ><button class="calculator__button">+</button
+        ><button class="calculator__button calculator__button--operator">
+          +</button
         ><button class="calculator__button calculator__button--span-two">
           0</button
         ><button class="calculator__button">.</button
-        ><button class="calculator__button">=</button>
+        ><button class="calculator__button calculator__button--operator">
+          =
+        </button>
       </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

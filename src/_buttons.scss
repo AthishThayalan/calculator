@@ -15,8 +15,10 @@
     font-size: 25px;
     cursor: pointer;
     &:active {
-      color: rgb(100, 96, 96);
       transform: scale(0.9);
+    }
+    &--operator {
+      color: #219ebc;
     }
   }
 }
