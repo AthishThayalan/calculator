@@ -1,11 +1,8 @@
 import "./style.scss";
 
-// target the display
-const display = document.getElementById("display");
+console.log("The application is running ...");
 
-//Add numbers to display
-const append = (value: string): void => {
-  console.log("append");
-  display.value += value;
-  console.log(`Added ${value}`);
-};
+// target the display
+const display = document.querySelector<HTMLInputElement>("display");
+const buttons = document.querySelectorAll<HTMLButtonElement>("button");
+let operation = "";
