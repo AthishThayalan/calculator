@@ -3,7 +3,9 @@ import "./style.scss";
 console.log("The application is running ...");
 
 //Variables to use
-const display = document.querySelector<HTMLInputElement>("display");
+const display = document.querySelector<HTMLInputElement>(
+  ".calculator__display"
+);
 const buttons = document.querySelectorAll<HTMLButtonElement>("button");
 let operation = "";
 
