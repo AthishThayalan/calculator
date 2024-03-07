@@ -9,7 +9,7 @@ const display = document.querySelector<HTMLInputElement>(
 const buttons = document.querySelectorAll<HTMLButtonElement>("button");
 let operation: string = "";
 
-const operators: string[] = ["+", "-", "*", "÷", "%"];
+const operators: string[] = ["+", "-", "*", "/", "%"];
 
 //Update Display
 const updateDisplay = (): void => {
@@ -33,12 +33,21 @@ const addValue = (value: string): void => {
   operation += value;
 };
 
+const calculateOperation = (operation: string): number => {
+  const splitOp: string[] = operation.split(/([-+*/])/);
+  let result = parseFloat(splitOp[0]);
+
+  for (let i: number = 0; i < splitOp.length; i += 2) {}
+
+  return 0;
+};
+
 const evaluateOperation = (): void => {
   if (
     operation &&
     !operators.includes(operation.charAt(operation.length - 1)) // only lets you press "=" if last element is a number
   ) {
-    const result: number = eval(operation);
+    const result: number = eval(operation); // CANNOT USE NEED TO CHANGE
     operation = result.toString();
     updateDisplay();
   }
