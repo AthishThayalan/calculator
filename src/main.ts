@@ -37,13 +37,24 @@ const calculateOperation = (operation: string): number => {
   const splitOp: string[] = operation.split(/([-+*/])/);
   let result = Number(splitOp[0]);
 
-  for (let i: number = 0; i < splitOp.length; i += 2) {
+  // Issue is these
+  for (let i: number = 1; i < splitOp.length; i += 2) {
     // we want to loop through all operators to know what to do with previous result and the next digit.
     const operator = splitOp[i]; // so this is the current operator
-    const num = Number(splitOp[i + 1]); // so this is the number after the operator
+    const nextNum = Number(splitOp[i + 1]); // so this is the number after the operator
+
+    if (operator === "+") {
+      result += nextNum;
+    } else if (operator === "-") {
+      result -= nextNum;
+    } else if (operator === "*") {
+      result *= nextNum;
+    } else if (operator === "/") {
+      result /= nextNum;
+    }
   }
 
-  return 0;
+  return result;
 };
 
 const evaluateOperation = (): void => {
@@ -51,7 +62,7 @@ const evaluateOperation = (): void => {
     operation &&
     !operators.includes(operation.charAt(operation.length - 1)) // only lets you press "=" if last element is a number
   ) {
-    const result: number = eval(operation); // CANNOT USE NEED TO CHANGE
+    const result: number = calculateOperation(operation); // CANNOT USE NEED TO CHANGE
     operation = result.toString();
     updateDisplay();
   }
