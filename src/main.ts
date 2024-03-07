@@ -9,6 +9,8 @@ const display = document.querySelector<HTMLInputElement>(
 const buttons = document.querySelectorAll<HTMLButtonElement>("button");
 let operation: string = "";
 
+const operators: string[] = ["+", "-", "*", "÷", "%"];
+
 //Update Display
 const updateDisplay = (): void => {
   if (!display) {
@@ -26,20 +28,40 @@ const removeLastDigit = (): void => {
   operation = operation.slice(0, -1);
   updateDisplay();
 };
+
+const addValue = (value: string): void => {
+  operation += value;
+};
+
+const evaluateOperation = (): void => {
+  if (
+    operation &&
+    !operators.includes(operation.charAt(operation.length - 1)) // only lets you press "=" if last element is a number
+  ) {
+    const result: number = eval(operation);
+    operation = result.toString();
+    updateDisplay();
+  }
+};
 //Add to operation / Display Output
 const addToOperation = (value: string): void => {
   if (
     (Number(value) >= 0 && Number(value) <= 9) ||
     (value === "." && !operation.includes(".")) // Makes sure that you can only add one decimal point.
   ) {
-    operation += value;
-    console.log(operation);
+    addValue(value);
   } else if (value === "AC") {
     clearOperation();
   } else if (value === "DEL") {
     removeLastDigit();
+  } else if (
+    operators.includes(value) &&
+    !operators.includes(operation.slice(-1)) // this checks that you can only enter an operator , if it is preceeded by a number
+  ) {
+    addValue(value);
+  } else {
+    evaluateOperation();
   }
-
   updateDisplay();
 };
 
