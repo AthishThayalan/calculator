@@ -35,9 +35,13 @@ const addValue = (value: string): void => {
 
 const calculateOperation = (operation: string): number => {
   const splitOp: string[] = operation.split(/([-+*/])/);
-  let result = parseFloat(splitOp[0]);
+  let result = Number(splitOp[0]);
 
-  for (let i: number = 0; i < splitOp.length; i += 2) {}
+  for (let i: number = 0; i < splitOp.length; i += 2) {
+    // we want to loop through all operators to know what to do with previous result and the next digit.
+    const operator = splitOp[i]; // so this is the current operator
+    const num = Number(splitOp[i + 1]); // so this is the number after the operator
+  }
 
   return 0;
 };
