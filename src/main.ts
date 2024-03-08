@@ -61,6 +61,10 @@ const shuntingYardAlgorithm = (operation: string): string => {
       }
     }
   }
+  for (let i: number = stack.length - 1; i >= 0; i--) {
+    queue.push(stack[i]);
+  }
+
   console.log(queue);
 
   return "";
