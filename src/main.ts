@@ -38,7 +38,33 @@ const precedence = (arg: string): number => {
   if (["+", "-"].includes(arg)) return 1;
   return 0;
 };
-const shuntingYardAlgorithm = (operation: string): void => {};
+const shuntingYardAlgorithm = (operation: string): string => {
+  const stack = [];
+  const queue = [];
+  for (let i: number = 0; i < operation.length; i++) {
+    if (!operators.includes(operation[i])) {
+      queue.push(operation[i]);
+    } else {
+      if (
+        precedence(operation[i]) > precedence(stack[stack.length - 1]) &&
+        stack.length !== 0
+      ) {
+        stack.push(operation[i]);
+      } else if (stack.length === 0) {
+        stack.push(operation[i]);
+      } else if (
+        precedence(operation[i]) < precedence(stack[stack.length - 1])
+      ) {
+        let itemToMove = stack.pop();
+        queue.push(itemToMove);
+        stack.push(operation[i]);
+      }
+    }
+  }
+  console.log(queue);
+
+  return "";
+};
 
 const calculateOperation = (operation: string): number => {
   const splitOp: string[] = operation.split(/([-+*/])/);
@@ -102,3 +128,5 @@ const addToOperation = (value: string): void => {
 buttons.forEach((button) => {
   button.addEventListener("click", () => addToOperation(button.innerText));
 });
+
+shuntingYardAlgorithm("5*5+4/2");
