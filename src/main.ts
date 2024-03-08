@@ -33,6 +33,13 @@ const addValue = (value: string): void => {
   operation += value;
 };
 
+const precedence = (arg: string): number => {
+  if (["*", "/"].includes(arg)) return 2;
+  if (["+", "-"].includes(arg)) return 1;
+  return 0;
+};
+const shuntingYardAlgorithm = (operation: string): void => {};
+
 const calculateOperation = (operation: string): number => {
   const splitOp: string[] = operation.split(/([-+*/])/);
   let result = Number(splitOp[0]);
