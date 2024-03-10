@@ -41,41 +41,49 @@ const precedence = (arg: string): number => {
 const shuntingYardAlgorithm = (operation: string): string => {
   const stack = [];
   const queue = [];
-  for (let i: number = 0; i < operation.length; i++) {
-    if (!operators.includes(operation[i])) {
-      queue.push(operation[i]);
+  console.log(`The operation string is : ${operation}`);
+
+  // Regular expression to split by numbers and operators.
+  const regex = /(\d+|[+\-*\/%])/g;
+  const tokens = operation.match(regex);
+  //
+  if (!tokens) {
+    throw new Error("Invalid operation string");
+  }
+
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    if (!operators.includes(token)) {
+      queue.push(token);
     } else {
       if (
-        precedence(operation[i]) > precedence(stack[stack.length - 1]) &&
+        precedence(token) > precedence(stack[stack.length - 1]) &&
         stack.length !== 0
       ) {
-        stack.push(operation[i]);
+        stack.push(token);
       } else if (stack.length === 0) {
-        stack.push(operation[i]);
-      } else if (
-        precedence(operation[i]) < precedence(stack[stack.length - 1])
-      ) {
+        stack.push(token);
+      } else if (precedence(token) < precedence(stack[stack.length - 1])) {
         let itemToMove = stack.pop();
         queue.push(itemToMove);
-        stack.push(operation[i]);
+        stack.push(token);
       }
     }
   }
-  for (let i: number = stack.length - 1; i >= 0; i--) {
+
+  for (let i = stack.length - 1; i >= 0; i--) {
     queue.push(stack[i]);
   }
 
-  console.log(queue);
+  console.log("the final expression is: " + queue);
 
   return queue.join("");
 };
 
 const postFixStackEvaluator = (operation: string): string => {
   const stack: string[] = [];
-
   for (let i: number = 0; i < operation.length; i++) {
     // at this point precedence doesn't matter . op[i] is either number or operator.
-    console.log(stack);
 
     if (!operators.includes(operation[i])) {
       stack.push(operation[i]);
@@ -98,7 +106,6 @@ const postFixStackEvaluator = (operation: string): string => {
       }
     }
   }
-  console.log(stack);
 
   return stack[0];
 };
