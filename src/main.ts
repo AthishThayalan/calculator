@@ -67,32 +67,66 @@ const shuntingYardAlgorithm = (operation: string): string => {
 
   console.log(queue);
 
-  return "";
+  return queue.join("");
+};
+
+const postFixStackEvaluator = (operation: string): string => {
+  const stack: string[] = [];
+
+  for (let i: number = 0; i < operation.length; i++) {
+    // at this point precedence doesn't matter . op[i] is either number or operator.
+    console.log(stack);
+
+    if (!operators.includes(operation[i])) {
+      stack.push(operation[i]);
+    } else {
+      if (stack.length < 2) {
+        throw new Error("error");
+      }
+      let secondNum: string | undefined = stack.pop();
+      let firstNum: string | undefined = stack.pop();
+      const num1: number = Number(firstNum);
+      const num2: number = Number(secondNum);
+      if (operation[i] === "+") {
+        stack.push((num1 + num2).toString());
+      } else if (operation[i] === "-") {
+        stack.push((num1 - num2).toString());
+      } else if (operation[i] === "*") {
+        stack.push((num1 * num2).toString());
+      } else if (operation[i] === "/") {
+        stack.push((num1 / num2).toString());
+      }
+    }
+  }
+  console.log(stack);
+
+  return stack[0];
 };
 
 const calculateOperation = (operation: string): number => {
-  const splitOp: string[] = operation.split(/([-+*/])/);
-  let result = Number(splitOp[0]);
+  // const splitOp: string[] = operation.split(/([-+*/])/);
+  // let result = Number(splitOp[0]);
 
-  // Issue is these
-  for (let i: number = 1; i < splitOp.length; i += 2) {
-    // we want to loop through all operators to know what to do with previous result and the next digit.
-    const operator = splitOp[i]; // so this is the current operator
-    const nextNum = Number(splitOp[i + 1]); // so this is the number after the operator
-    console.log(nextNum);
+  // // Issue is these
+  // for (let i: number = 1; i < splitOp.length; i += 2) {
+  //   // we want to loop through all operators to know what to do with previous result and the next digit.
+  //   const operator = splitOp[i]; // so this is the current operator
+  //   const nextNum = Number(splitOp[i + 1]); // so this is the number after the operator
+  //   console.log(nextNum);
 
-    if (operator === "+") {
-      result += nextNum;
-    } else if (operator === "-") {
-      result -= nextNum;
-    } else if (operator === "*") {
-      result *= nextNum;
-    } else if (operator === "/") {
-      result /= nextNum;
-    }
-  }
+  // if (operator === "+") {
+  //   result += nextNum;
+  // } else if (operator === "-") {
+  //   result -= nextNum;
+  // } else if (operator === "*") {
+  //   result *= nextNum;
+  // } else if (operator === "/") {
+  //   result /= nextNum;
+  // }
+  // }
+  const result = postFixStackEvaluator(shuntingYardAlgorithm(operation));
 
-  return result;
+  return Number(result);
 };
 
 const evaluateOperation = (): void => {
@@ -132,5 +166,3 @@ const addToOperation = (value: string): void => {
 buttons.forEach((button) => {
   button.addEventListener("click", () => addToOperation(button.innerText));
 });
-
-shuntingYardAlgorithm("5*5+4/2");
