@@ -1,6 +1,6 @@
 # Simple Calculator App
 
-This is a simple calculator web application built using HTML, SCSS, and TypeScript. It allows users to perform basic arithmetic operations such as addition, subtraction, multiplication, and division.
+This is a simple calculator web application built using HTML, SCSS, and TypeScript. It allows users to perform basic arithmetic operations such as addition, subtraction, multiplication, and division. Used the Shunting Yard Algorithm and Post Fix Evaluation to implement BIDMAS/PEMDAS. 
 
 ## Features
 
@@ -8,7 +8,7 @@ This is a simple calculator web application built using HTML, SCSS, and TypeScri
 - Clear button (AC) to clear the display.
 - Delete button (DEL) to delete the last entered character.
 - Equals button (=) to calculate the result.
-
+- 
 ## Technologies Used
 
 - **HTML**: Markup language used to structure the web page.
