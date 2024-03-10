@@ -38,7 +38,7 @@ const precedence = (arg: string): number => {
   if (["+", "-"].includes(arg)) return 1;
   return 0;
 };
-const shuntingYardAlgorithm = (operation: string): string => {
+const shuntingYardAlgorithm = (operation: string): string[] => {
   const stack = [];
   const queue = [];
   console.log(`The operation string is : ${operation}`);
@@ -75,12 +75,16 @@ const shuntingYardAlgorithm = (operation: string): string => {
     queue.push(stack[i]);
   }
 
+  if (!queue) {
+    throw new Error("Error occured");
+  }
+
   console.log("the final expression is: " + queue);
 
-  return queue.join("");
+  return queue as string[];
 };
 
-const postFixStackEvaluator = (operation: string): string => {
+const postFixStackEvaluator = (operation: string[]): string => {
   const stack: string[] = [];
   for (let i: number = 0; i < operation.length; i++) {
     // at this point precedence doesn't matter . op[i] is either number or operator.
