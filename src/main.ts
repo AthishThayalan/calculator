@@ -39,20 +39,21 @@ const precedence = (arg: string): number => {
   return 0;
 };
 const shuntingYardAlgorithm = (operation: string): string[] => {
+  console.log("STARTING OPERATION : " + operation);
   const stack = [];
   const queue = [];
-  console.log(`The operation string is : ${operation}`);
-
   // Regular expression to split by numbers and operators.
   const regex = /(\d+|[+\-*\/%])/g;
-  const tokens = operation.match(regex);
+  const tokens = operation.match(regex); // returns arr split by nums and operators.
   //
+  console.log("Reg expression thats been split : " + tokens);
   if (!tokens) {
     throw new Error("Invalid operation string");
   }
 
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
+    console.log(`Shunting Yard Algorithm Iteration ${i} : ${queue}`);
     if (!operators.includes(token)) {
       queue.push(token);
     } else {
@@ -61,7 +62,10 @@ const shuntingYardAlgorithm = (operation: string): string[] => {
         stack.length !== 0
       ) {
         stack.push(token);
-      } else if (stack.length === 0) {
+      } else if (
+        stack.length === 0 ||
+        precedence(token) === precedence(stack[stack.length - 1])
+      ) {
         stack.push(token);
       } else if (precedence(token) < precedence(stack[stack.length - 1])) {
         let itemToMove = stack.pop();
@@ -78,19 +82,19 @@ const shuntingYardAlgorithm = (operation: string): string[] => {
   if (!queue) {
     throw new Error("Error occured");
   }
-
-  console.log("the final expression is: " + queue);
-
+  console.log("FINAL SHUNTING EXPRESSION: " + queue);
   return queue as string[];
 };
 
 const postFixStackEvaluator = (operation: string[]): string => {
   const stack: string[] = [];
+  console.log("Starting post fix: " + operation);
   for (let i: number = 0; i < operation.length; i++) {
     // at this point precedence doesn't matter . op[i] is either number or operator.
-
-    if (!operators.includes(operation[i])) {
-      stack.push(operation[i]);
+    console.log("post fix stack iteration : " + i + ": " + stack);
+    const token = operation[i];
+    if (!operators.includes(token)) {
+      stack.push(token);
     } else {
       if (stack.length < 2) {
         throw new Error("error");
@@ -99,17 +103,18 @@ const postFixStackEvaluator = (operation: string[]): string => {
       let firstNum: string | undefined = stack.pop();
       const num1: number = Number(firstNum);
       const num2: number = Number(secondNum);
-      if (operation[i] === "+") {
+      if (token === "+") {
         stack.push((num1 + num2).toString());
-      } else if (operation[i] === "-") {
+      } else if (token === "-") {
         stack.push((num1 - num2).toString());
-      } else if (operation[i] === "*") {
+      } else if (token === "*") {
         stack.push((num1 * num2).toString());
-      } else if (operation[i] === "/") {
+      } else if (token === "/") {
         stack.push((num1 / num2).toString());
       }
     }
   }
+  console.log("FINAL post fix stack: " + stack);
 
   return stack[0];
 };
