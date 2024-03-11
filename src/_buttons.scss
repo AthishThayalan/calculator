@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
+    transition: background-color 0.3s ease;
     .calculator__button--span-two {
       grid-column-end: span 2;
     }

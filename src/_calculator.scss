@@ -1,13 +1,14 @@
 .calculator {
-  perspective: 1000px;
-  border: 1px solid black;
-  border-radius: 10px;
   max-width: 300px;
   width: 100%;
   padding: 20px;
+  border-radius: 10px;
   background-color: whitesmoke;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+
   &__display {
+    transition: background-color 0.3s ease;
     height: 80px;
     width: 100%;
     border: none;

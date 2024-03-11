@@ -1,0 +1,27 @@
+.dark-mode-switch {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dark-mode-switch .toggle {
+  height: 20px;
+  width: 40px;
+  background-color: #ddd;
+  border-radius: 20px;
+  padding: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode-switch .toggle-handle {
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}

@@ -1,6 +1,7 @@
 @use "./variables";
 
 body {
+  transition: background-color 0.3s ease;
   height: 100vh;
   display: flex;
   flex-direction: column;
