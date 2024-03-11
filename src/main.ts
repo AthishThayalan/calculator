@@ -68,8 +68,10 @@ const shuntingYardAlgorithm = (operation: string): string[] => {
       ) {
         stack.push(token);
       } else if (precedence(token) < precedence(stack[stack.length - 1])) {
-        let itemToMove = stack.pop();
-        queue.push(itemToMove);
+        while (stack.length > 0) {
+          let itemToMove = stack.pop();
+          queue.push(itemToMove);
+        }
         stack.push(token);
       }
     }
@@ -91,7 +93,7 @@ const postFixStackEvaluator = (operation: string[]): string => {
   console.log("Starting post fix: " + operation);
   for (let i: number = 0; i < operation.length; i++) {
     // at this point precedence doesn't matter . op[i] is either number or operator.
-    console.log("post fix stack iteration : " + i + ": " + stack);
+    console.log("post fix stack iteration " + i + ": " + stack);
     const token = operation[i];
     if (!operators.includes(token)) {
       stack.push(token);
@@ -114,7 +116,7 @@ const postFixStackEvaluator = (operation: string[]): string => {
       }
     }
   }
-  console.log("FINAL post fix stack: " + stack);
+  console.log("FINAL POST FIX STACK: " + stack);
 
   return stack[0];
 };
