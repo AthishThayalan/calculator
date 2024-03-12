@@ -1,4 +1,5 @@
 import "./style.scss";
+import confetti from "canvas-confetti";
 
 console.log("The application is running ...");
 
@@ -7,9 +8,11 @@ const display = document.querySelector<HTMLInputElement>(
 );
 const calculator = document.querySelector<HTMLDivElement>(".calculator");
 const buttons = document.querySelectorAll<HTMLButtonElement>("button");
+const darkModeSwitch =
+  document.querySelector<HTMLDivElement>(".dark-mode-switch");
 let operation: string = "";
 
-const operators: string[] = ["+", "-", "*", "/", "%"];
+const operators: string[] = ["+", "-", "*", "/", "^", "%"];
 
 if (!calculator || !display) {
   throw new Error("Error.");
@@ -37,6 +40,7 @@ const addValue = (value: string): void => {
 };
 
 const precedence = (arg: string): number => {
+  if (arg === "^") return 3;
   if (["*", "/"].includes(arg)) return 2;
   if (["+", "-"].includes(arg)) return 1;
   return 0;
@@ -46,7 +50,7 @@ const shuntingYardAlgorithm = (operation: string): string[] => {
   const stack = [];
   const queue = [];
 
-  const regex = /(\d+|[+\-*\/%])/g;
+  const regex = /(\d+(\.\d+)?|[+\-*^\/%])/g;
   const tokens = operation.match(regex);
 
   console.log("Reg expression thats been split : " + tokens);
@@ -115,6 +119,8 @@ const postFixStackEvaluator = (operation: string[]): string => {
         stack.push((num1 * num2).toString());
       } else if (token === "/") {
         stack.push((num1 / num2).toString());
+      } else if (token === "^") {
+        stack.push((num1 ** num2).toString());
       }
     }
   }
@@ -145,6 +151,10 @@ const calculateOperation = (operation: string): number => {
   // }
   // }
   const result = postFixStackEvaluator(shuntingYardAlgorithm(operation));
+  confetti({
+    particleCount: 500,
+    spread: 10000,
+  });
 
   return Number(result);
 };
@@ -161,10 +171,7 @@ const evaluateOperation = (): void => {
 };
 
 const addToOperation = (value: string): void => {
-  if (
-    (Number(value) >= 0 && Number(value) <= 9) ||
-    (value === "." && !operation.includes("."))
-  ) {
+  if ((Number(value) >= 0 && Number(value) <= 9) || value === ".") {
     addValue(value);
   } else if (value === "AC") {
     clearOperation();
@@ -184,9 +191,6 @@ const addToOperation = (value: string): void => {
 buttons.forEach((button) => {
   button.addEventListener("click", () => addToOperation(button.innerText));
 });
-
-const darkModeSwitch =
-  document.querySelector<HTMLDivElement>(".dark-mode-switch");
 
 if (darkModeSwitch) {
   darkModeSwitch.addEventListener("click", function () {
