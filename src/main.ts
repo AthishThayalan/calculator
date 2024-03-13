@@ -86,15 +86,12 @@ const shuntingYardAlgorithm = (operation: string): string[] => {
   if (!queue) {
     throw new Error("Error occured");
   }
-  console.log("FINAL SHUNTING EXPRESSION: " + queue);
   return queue as string[];
 };
 
 const postFixStackEvaluator = (operation: string[]): string => {
   const stack: string[] = [];
-  console.log("Starting post fix: " + operation);
   for (let i: number = 0; i < operation.length; i++) {
-    console.log("post fix stack iteration " + i + ": " + stack);
     const token = operation[i];
     if (!operators.includes(token)) {
       stack.push(token);
