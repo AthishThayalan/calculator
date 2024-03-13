@@ -1,8 +1,6 @@
 import "./style.scss";
 import confetti from "canvas-confetti";
 
-console.log("The application is running ...");
-
 const display = document.querySelector<HTMLInputElement>(
   ".calculator__display"
 );
@@ -46,21 +44,18 @@ const precedence = (arg: string): number => {
   return 0;
 };
 const shuntingYardAlgorithm = (operation: string): string[] => {
-  console.log("STARTING OPERATION : " + operation);
   const stack = [];
   const queue = [];
 
   const regex = /(\d+(\.\d+)?|[+\-*^\/%])/g;
   const tokens = operation.match(regex);
 
-  console.log("Reg expression thats been split : " + tokens);
   if (!tokens) {
     throw new Error("Invalid operation string");
   }
 
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    console.log(`Shunting Yard Algorithm Iteration ${i} : ${queue}`);
     if (!operators.includes(token)) {
       queue.push(token);
     } else {
@@ -124,32 +119,10 @@ const postFixStackEvaluator = (operation: string[]): string => {
       }
     }
   }
-  console.log("FINAL POST FIX STACK: " + stack);
-
   return stack[0];
 };
 
 const calculateOperation = (operation: string): number => {
-  // const splitOp: string[] = operation.split(/([-+*/])/);
-  // let result = Number(splitOp[0]);
-
-  // // Issue is these
-  // for (let i: number = 1; i < splitOp.length; i += 2) {
-  //   // we want to loop through all operators to know what to do with previous result and the next digit.
-  //   const operator = splitOp[i]; // so this is the current operator
-  //   const nextNum = Number(splitOp[i + 1]); // so this is the number after the operator
-  //   console.log(nextNum);
-
-  // if (operator === "+") {
-  //   result += nextNum;
-  // } else if (operator === "-") {
-  //   result -= nextNum;
-  // } else if (operator === "*") {
-  //   result *= nextNum;
-  // } else if (operator === "/") {
-  //   result /= nextNum;
-  // }
-  // }
   const result = postFixStackEvaluator(shuntingYardAlgorithm(operation));
   confetti({
     particleCount: 500,
@@ -196,7 +169,7 @@ if (darkModeSwitch) {
   darkModeSwitch.addEventListener("click", function () {
     this.classList.toggle("active");
     const toggleHandle = document.querySelector(
-      ".toggle-handle"
+      ".dark-mode-switch__toggle-handle"
     ) as HTMLElement;
     if (toggleHandle) {
       toggleHandle.style.transform = this.classList.contains("active")
